@@ -2,6 +2,7 @@
 
 This is a simple whiteboard app where you can draw freely and also ask AI to explain things for you.  
 It mixes drawing + learning, so you can just scribble ideas and get explanations instantly using Gemini AI.
+It doesnt give stylus support yet, maybe ill update in future :)
 
 ---
 
