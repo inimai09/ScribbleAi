@@ -31,11 +31,11 @@ And it replies in easy-to-understand points.
 
 ## 🛠️ Built with
 
-- React (frontend)
-- Vite (for fast dev server)
-- Tailwind CSS (for styling)
-- Lucide Icons (for icons)
-- Google Gemini API (for AI responses)
+- React js
+- Vite 
+- Tailwind CSS 
+- Lucide Icons
+- Google Gemini API
 
 ---
 
