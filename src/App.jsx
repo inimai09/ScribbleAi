@@ -15,7 +15,7 @@ const testAI = async () => {
     setAnswer("Thinking...");
 
     const response = await ai.models.generateContent({
-      model: "gemini-2.0-flash",
+      model: "gemini-2.5-flash",
       contents: prompt,
     });
 
@@ -106,9 +106,9 @@ const [loading, setLoading] = useState(false);
       className="
         fixed top-5 left-1/2 -translate-x-1/2
 
-        flex items-center gap-2
+        flex items-center  justify-center gap-1
 
-        px-3 py-2
+        px-2 py-1
 
         bg-zinc-900/80
         backdrop-blur-md
@@ -138,7 +138,7 @@ const [loading, setLoading] = useState(false);
           value={color}
           onChange={(e) => setColor(e.target.value)}
           className="
-            w-10 h-10
+            w-7 h-7
             cursor-pointer
             rounded-lg
           "
@@ -150,7 +150,7 @@ const [loading, setLoading] = useState(false);
       <button
         onClick={() => setTool("pen")}
         className={`
-          w-10 h-10
+          w-7 h-7
           rounded-lg
 
           flex items-center justify-center
@@ -165,13 +165,13 @@ const [loading, setLoading] = useState(false);
           ${tool === "pen" ? "bg-zinc-700" : ""}
         `}
       >
-        <Pencil size={20} />
+        <Pencil size={16} />
       </button>
 
       <button
         onClick={() => setTool("eraser")}
         className={`
-          w-10 h-10
+          w-7 h-7
           rounded-lg
 
           flex items-center justify-center
@@ -186,13 +186,13 @@ const [loading, setLoading] = useState(false);
           ${tool === "eraser" ? "bg-zinc-700" : ""}
         `}
       >
-        <Eraser size={20} />
+        <Eraser size={16} />
       </button>
 
       <button
         onClick={clearCanvas}
         className="
-          w-10 h-10
+          w-7 h-7
           rounded-lg
 
           flex items-center justify-center
@@ -205,7 +205,7 @@ const [loading, setLoading] = useState(false);
           transition-all duration-200
         "
       >
-        <Trash2 size={20} />
+        <Trash2 size={16} />
       </button>
     </div>
 
@@ -259,10 +259,11 @@ const [loading, setLoading] = useState(false);
           top-20
           right-5
 
-          w-80
+          w-140
 
           bg-zinc-900/90
           text-white
+          whitespace-pre-wrap
 
           p-4
 

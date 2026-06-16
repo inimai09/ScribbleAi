@@ -15,7 +15,8 @@
     "@tailwindcss/postcss": "^4.3.0",
     "lucide-react": "^1.17.0",
     "react": "^19.2.6",
-    "react-dom": "^19.2.6"
+    "react-dom": "^19.2.6",
+    "tldraw": "^5.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.29.0",
