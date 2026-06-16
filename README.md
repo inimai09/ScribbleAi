@@ -1,18 +1,52 @@
-# React + Vite
+#  Scribble AI
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a simple whiteboard app where you can draw freely and also ask AI to explain things for you.  
+It mixes drawing + learning, so you can just scribble ideas and get explanations instantly using Gemini AI.
+It doesnt give stylus support yet, maybe ill update in future :)
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+##  What you can do here :)
 
-## React Compiler
+-  Draw anything on a blackboard-style canvas
+-  Erase parts instead of clearing everything
+-  Pick any color you want
+-  Clear the whole board if needed
+-  Ask AI questions and get short explanations
+-  Type doubts like “what is binary search?” or “explain react”
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+---
 
-Note: This will impact Vite dev & build performances.
+## 🧠 AI part
 
-## Expanding the ESLint configuration
+You just type something in the box and click AI.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Example:
+- “Explain binary search”
+- “What is JavaScript?”
+- “Summarize this in simple points”
+
+And it replies in easy-to-understand points.
+
+---
+
+## 🛠️ Built with
+
+- React js
+- Vite 
+- Tailwind CSS 
+- Lucide Icons
+- Google Gemini API
+
+---
+
+## ⚙️ How to run this project
+
+```bash
+git clone https://github.com/your-username/scribble-ai.git
+
+cd scribble-ai
+
+npm install
+
+npm run dev
