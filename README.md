@@ -1,52 +1,293 @@
-#  Scribble AI
+# ✨ Scribble AI
 
-This is a simple whiteboard app where you can draw freely and also ask AI to explain things for you.  
-It mixes drawing + learning, so you can just scribble ideas and get explanations instantly using Gemini AI.
-It doesnt give stylus support yet, maybe ill update in future :)
+An interactive **AI-powered whiteboard** that lets you draw freely on a digital canvas and ask an AI tutor questions about your drawing.
 
----
-
-##  What you can do here :)
-
--  Draw anything on a blackboard-style canvas
--  Erase parts instead of clearing everything
--  Pick any color you want
--  Clear the whole board if needed
--  Ask AI questions and get short explanations
--  Type doubts like “what is binary search?” or “explain react”
+Scribble AI combines a browser-based HTML Canvas whiteboard with **Google Gemini**, allowing users to send their drawing along with a question and receive a simple AI-generated explanation.
 
 ---
 
-## 🧠 AI part
+## 🚀 Features
 
-You just type something in the box and click AI.
+* 🖊️ **Digital Whiteboard**
 
-Example:
-- “Explain binary search”
-- “What is JavaScript?”
-- “Summarize this in simple points”
+  * Draw directly on the canvas using your mouse, touch, or stylus.
+  * Smooth freehand drawing.
 
-And it replies in easy-to-understand points.
+* 🎨 **Drawing Tools**
+
+  * Pen tool
+  * Eraser
+  * Custom pen color
+  * Adjustable brush size
+
+* ↩️ **Undo & Redo**
+
+  * Undo and redo previous drawing strokes.
+  * Supports keyboard shortcuts:
+
+    * `Ctrl/Cmd + Z` → Undo
+    * `Ctrl/Cmd + Shift + Z` → Redo
+    * `Ctrl/Cmd + Y` → Redo
+
+* 🗑️ **Clear Board**
+
+  * Quickly remove everything from the whiteboard.
+
+* 🤖 **AI Tutor**
+
+  * Ask Gemini questions about your drawing.
+  * Optionally send the current whiteboard drawing along with the question.
+  * AI responses are displayed directly inside the application.
+
+* 📸 **Canvas → Image**
+
+  * The current canvas is converted into a PNG image.
+  * The image is encoded as Base64 before being sent to Gemini.
+
+* 📱 **Pointer Support**
+
+  * Uses pointer events so the drawing system can work with mouse, touch, and stylus input.
 
 ---
 
-## 🛠️ Built with
+## 🏗️ Architecture
 
-- React js
-- Vite 
-- Tailwind CSS 
-- Lucide Icons
-- Google Gemini API
+The project is divided into separate responsibilities so that the UI, whiteboard logic, and AI communication remain independent.
+
+```text
+                         Scribble AI
+                             │
+                             ▼
+                      React Application
+                             │
+              ┌──────────────┴──────────────┐
+              │                             │
+              ▼                             ▼
+        Toolbar.jsx                    AskAI.jsx
+              │                             │
+              │                             ▼
+              │                         gemini.js
+              │                             │
+              ▼                             ▼
+       useWhiteboard.js              Gemini API
+              │                             │
+              ▼                             ▼
+           Canvas                       AI Response
+              │                             │
+              └──────────────┬──────────────┘
+                             ▼
+                           User
+```
+
+### Component Responsibilities
+
+| File               | Responsibility                                                 |
+| ------------------ | -------------------------------------------------------------- |
+| `AskAI.jsx`        | AI input, loading state, errors, and displaying responses      |
+| `Toolbar.jsx`      | Pen, eraser, color, brush size, undo, redo, and clear controls |
+| `useWhiteboard.js` | Core whiteboard drawing logic and canvas state                 |
+| `gemini.js`        | Creates and exports the Gemini API client                      |
 
 ---
 
-## ⚙️ How to run this project
+## 🔄 How It Works
 
-```bash
-git clone https://github.com/your-username/scribble-ai.git
+### 1. Drawing
 
-cd scribble-ai
+The user draws on the HTML Canvas.
 
-npm install
+```text
+User moves pointer
+       ↓
+Pointer Event
+       ↓
+useWhiteboard.js
+       ↓
+Canvas 2D Context
+       ↓
+Line is drawn
+```
 
-npm run dev
+The whiteboard tracks the previous pointer position and draws small line segments between consecutive points.
+
+---
+
+### 2. Undo / Redo
+
+After completing a drawing stroke, the current canvas is saved as a snapshot.
+
+```text
+Drawing
+   ↓
+Canvas Snapshot
+   ↓
+History Array
+```
+
+Undo moves backward through the snapshot history, while redo moves forward.
+
+A maximum of **30 history states** is maintained.
+
+---
+
+### 3. Sending the Drawing to AI
+
+When the user asks Gemini a question, the application can optionally include the current drawing.
+
+```text
+Canvas
+  ↓
+toDataURL("image/png")
+  ↓
+PNG image
+  ↓
+Base64 data
+  ↓
+Gemini API
+```
+
+The request can contain both:
+
+```text
+┌───────────────────────┐
+│ Whiteboard image      │
+├───────────────────────┤
+│ User's question       │
+└───────────────────────┘
+             ↓
+          Gemini
+             ↓
+       AI response
+```
+
+---
+
+## 🤖 AI Request Flow
+
+The AI component builds the request using the drawing and the user's question.
+
+```text
+User enters question
+        ↓
+      AskAI.jsx
+        ↓
+Include drawing?
+     /       \
+   Yes        No
+    ↓          ↓
+Canvas       Question
+    ↓          │
+Base64         │
+    └────┬─────┘
+         ↓
+    Gemini API
+         ↓
+    AI Response
+         ↓
+    AskAI.jsx
+         ↓
+      Screen
+```
+
+The AI is given a system instruction to behave like a friendly tutor and explain concepts using short, simple bullet points.
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+
+* React
+* JavaScript
+* HTML Canvas
+* Tailwind CSS
+* Vite
+
+### AI
+
+* Google Gemini
+* `@google/genai`
+
+### Icons
+
+* Lucide React
+
+---
+
+## 📁 Project Structure
+
+```text
+scribble-ai/
+│
+├── src/
+│   │
+│   ├── components/
+│   │   ├── AskAI.jsx
+│   │   └── Toolbar.jsx
+│   │
+│   ├── hooks/
+│   │   └── useWhiteboard.js
+│   │
+│   ├── gemini.js
+│   │
+│   └── ...
+│
+├── .env
+├── package.json
+└── README.md
+```
+
+## 🎯 Example Use Cases
+
+Scribble AI can be used as an interactive learning tool.
+<img width="1554" height="655" alt="image" src="https://github.com/user-attachments/assets/3cf0a081-d9dc-45fc-b7c3-f9c2a974b7a7" />
+
+
+## 🧠 What This Project Demonstrates
+
+This project is designed to demonstrate several practical frontend concepts:
+
+* React component architecture
+* React state management
+* Custom React hooks
+* HTML Canvas API
+* Pointer Events
+* Canvas image export
+* Undo/redo state management
+* API integration
+* Multimodal AI requests
+* Environment variables
+* Separation of UI and business logic
+
+---
+
+## 🔮 Future Improvements
+
+Possible future additions include:
+
+* 💾 Save and load whiteboards
+* 👥 Real-time collaborative whiteboards
+* 📝 AI-generated notes from drawings
+* ✨ AI-powered drawing recognition
+* 📐 Shape recognition
+* 🧮 Mathematical equation recognition
+* 📚 AI study mode
+* 🔐 User accounts
+* ☁️ Cloud storage
+* 📱 Improved mobile support
+* 🖼️ Export drawings as PNG/PDF
+
+---
+
+## 📌 Project Status
+
+🚧 **Currently under development**
+
+The current version focuses on the core whiteboard functionality and Gemini-powered AI interaction.
+
+---
+
+## 👨‍💻 Author
+
+**Inimai**
+
