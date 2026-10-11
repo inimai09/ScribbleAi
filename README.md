@@ -261,24 +261,6 @@ This project is designed to demonstrate several practical frontend concepts:
 
 ---
 
-## 🔮 Future Improvements
-
-Possible future additions include:
-
-* 💾 Save and load whiteboards
-* 👥 Real-time collaborative whiteboards
-* 📝 AI-generated notes from drawings
-* ✨ AI-powered drawing recognition
-* 📐 Shape recognition
-* 🧮 Mathematical equation recognition
-* 📚 AI study mode
-* 🔐 User accounts
-* ☁️ Cloud storage
-* 📱 Improved mobile support
-* 🖼️ Export drawings as PNG/PDF
-
----
-
 ## 📌 Project Status
 
 🚧 **Currently under development**
